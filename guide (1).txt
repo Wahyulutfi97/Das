@@ -1,0 +1,25 @@
+cd /home/frappe/ahok-bench
+
+1. generate.sh
+curl -X POST 'https://fs.tokopedia.net/v1/fs/15209/register?upload=1' -H 'Authorization: Bearer c:HmHecgGKQ5uP9xGLzJlpTw' -H 'content-type: multipart/form-data' -F public_key=@"/home/frappe/ahok-bench/id_rsa.pub"
+
+id_rsa.pub (public key)
+id_rsa (private key)
+
+2. sign.sh
+
+./sign.sh '{"fs_id":15209}'
+
+result:
+TKPD-Signature: pZNnhLSdSLJTPW7m+rPBuJQJi7JzkTQ8UV1r6MwvgxtXSGzvhZI7XIYRqshrT2/Lzmn/Nmu245LBGkSvkvLjg1n7oVQVRT5hSuiY31lk9cJcruRYwKeZP38xxhyN6ZItDsUma4yqClNI9d26J6hqcGnCRT/7fA3Cw/o+Xp5p1ChlhbOAV1AjTTxtZT74M6x6ek0+IIBMNE6yVvy4DoFxC5CRD8tZZIoseOwX9GlXyJa2Ai516KJ12brdua9Pu7CYhKKMFQZujR+2gQLpF8zmz5uYXtodEuC7gGc5//72j/wFQSzLl956tMUa2HhDRJtz8WpMkUgCv8IbiukETKG4Vg==
+
+3. verify.sh
+
+./rsa/verify.sh '{"fs_id":15209}' id_rsa.pub pZNnhLSdSLJTPW7m+rPBuJQJi7JzkTQ8UV1r6MwvgxtXSGzvhZI7XIYRqshrT2/Lzmn/Nmu245LBGkSvkvLjg1n7oVQVRT5hSuiY31lk9cJcruRYwKeZP38xxhyN6ZItDsUma4yqClNI9d26J6hqcGnCRT/7fA3Cw/o+Xp5p1ChlhbOAV1AjTTxtZT74M6x6ek0+IIBMNE6yVvy4DoFxC5CRD8tZZIoseOwX9GlXyJa2Ai516KJ12brdua9Pu7CYhKKMFQZujR+2gQLpF8zmz5uYXtodEuC7gGc5//72j/wFQSzLl956tMUa2HhDRJtz8WpMkUgCv8IbiukETKG4Vg==
+
+
+./decrypt-secret.sh /home/frappe/ahok-bench/id_rsa wKzXw7LYcrEzsqxaS/F8+5W9hBjjSFaa4SEpV23ZQjS4kjLZoARhhEEd6yO1611rSvSv2sxlaaf7hZQBFv+D9clflc4K1kk+LCU84e8xkU/xmBcvVFpxCWO9MqLn0BprvVxfu3euer5TYwy6wKq80HGg5tlLbHfgJWvBYBSlvYOA+e0dxiy48dNLMdi50dQWKqdgAyRUdbpdoMmnJjlVwB9OSiRAg8BBhF5RaRV4JhutZ96kv5klDNOBnLSsx/xbQCtN0Ykof/gry9Vwb0/DEXEe5Zb908tZBslU9auj+AYcPyYdhsiVJYPgMM6QxCKwAryBJFx8l6D24pyCsHPy+w==
+
+./decrypt-secret.sh public.txt wKzXw7LYcrEzsqxaS/F8+5W9hBjjSFaa4SEpV23ZQjS4kjLZoARhhEEd6yO1611rSvSv2sxlaaf7hZQBFv+D9clflc4K1kk+LCU84e8xkU/xmBcvVFpxCWO9MqLn0BprvVxfu3euer5TYwy6wKq80HGg5tlLbHfgJWvBYBSlvYOA+e0dxiy48dNLMdi50dQWKqdgAyRUdbpdoMmnJjlVwB9OSiRAg8BBhF5RaRV4JhutZ96kv5klDNOBnLSsx/xbQCtN0Ykof/gry9Vwb0/DEXEe5Zb908tZBslU9auj+AYcPyYdhsiVJYPgMM6QxCKwAryBJFx8l6D24pyCsHPy+w==
+
+./decrypt-secret.sh /home/frappe/ahok-bench/id_rsa.pub 73m11gAbu2Lgw52BycCD6rJ6b4btoz+Y0PVeybvgSKWXvB2e3q654Mw2wgQSZdLgo4GylM0mIq1nDqzy9rZzF33ndGRO7nOgLxtDrUJGrYp62pF/tbAohm5niKrvwy7c6SIZqsHnQpjR+CvT3rSmneNUuIQFyB13iWFSxuPJwyeQTysrIQG1vWkBuPEu2JVoaoArzf9w/uu4NafO5zsXix0Ei95UJLZNnx6l9c4gSDjc8vmmJwVoYJCOesy8rrUJBSTO+rxameh1nKQs2l5bGZjhU8Z0dpXZ7EZEJHCbukfkcbFHQL6qGQt+r2T81w1NcjOErTJJP30d+qxxrZwXLNuOnTmU6uVKS7pA3xYD2VkNQ7H1O5cYW3zHoMCHBuHzHT81vpp9fvC8lo0RjQwMpd4CX9H+YJ1m4p3bps+ezX4qhB9UPUt7+TaRHidbkF8nhzssNHpaCPUHu0kq12YL3KMq6AUcOrb7nqap
